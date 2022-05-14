@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: CUSTOMER
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    name: main-postgresql
+    url: jdbc:postgresql://localhost:5432/customer-db
+    username: user
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+server:
+  port: 8081
+

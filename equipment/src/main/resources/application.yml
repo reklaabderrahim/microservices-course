@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: EQUIPMENT
+  data:
+    mongodb:
+      uri: mongodb://user:password@localhost:27017/equipment-db
+      database: equipment-db
+
+server:
+  port: 8082
+
