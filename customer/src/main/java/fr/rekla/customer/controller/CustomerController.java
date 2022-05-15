@@ -27,7 +27,7 @@ public class CustomerController {
     @GetMapping("/{customerId}/equipment")
     public ResponseEntity<Equipment> getEquipment(@PathVariable("customerId") Integer customerId) {
         Equipment equipment = restTemplate.getForObject(
-                "http://localhost:8082/api/v1/equipments/{customerid}",
+                "http://EQUIPMENT/api/v1/equipments/{customerid}",
                 Equipment.class,
                 customerId
         );
