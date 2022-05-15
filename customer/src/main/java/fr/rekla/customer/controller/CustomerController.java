@@ -2,6 +2,7 @@ package fr.rekla.customer.controller;
 
 import fr.rekla.customer.entities.Customer;
 import fr.rekla.customer.entities.Equipment;
+import fr.rekla.customer.feign.EquipmentClientService;
 import fr.rekla.customer.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
-    private final RestTemplate restTemplate;
+    private final EquipmentClientService equipmentClientService;
 
     @PostMapping
     public ResponseEntity<Customer> storeCustomer(@RequestBody Customer customer) {
@@ -26,11 +27,6 @@ public class CustomerController {
 
     @GetMapping("/{customerId}/equipment")
     public ResponseEntity<Equipment> getEquipment(@PathVariable("customerId") Integer customerId) {
-        Equipment equipment = restTemplate.getForObject(
-                "http://EQUIPMENT/api/v1/equipments/{customerid}",
-                Equipment.class,
-                customerId
-        );
-        return new ResponseEntity<>(equipment, HttpStatus.OK);
+        return equipmentClientService.retrieveEquipmentById(customerId);
     }
 }

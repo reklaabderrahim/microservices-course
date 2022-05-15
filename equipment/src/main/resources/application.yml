@@ -1,17 +1,27 @@
 spring:
   application:
-    name: EQUIPMENT
+    name: equipment
   data:
     mongodb:
       uri: mongodb://user:password@localhost:27017/equipment-db
       database: equipment-db
+  config:
+    import: "optional:configserver:${config.uri:http://localhost:8888}"
 
 server:
   port: 8082
 
 eureka:
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      defaultZone: ${eureka.url:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,11 +1,11 @@
 spring:
   application:
-    name: CUSTOMER
+    name: customer
   datasource:
     driver-class-name: org.postgresql.Driver
     name: main-postgresql
     url: jdbc:postgresql://localhost:5432/customer-db
-    username: user
+    username: us
     password: password
   jpa:
     properties:
@@ -15,14 +15,24 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
+  config:
+    import: "optional:configserver:${config.uri:http://localhost:8888}"
 
 server:
   port: 8081
 
 eureka:
   client:
+    registerWithEureka: true
+    fetchRegistry: true
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+      defaultZone: ${eureka.url:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
