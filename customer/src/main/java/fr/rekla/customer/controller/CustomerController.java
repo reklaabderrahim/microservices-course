@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @RestController
@@ -21,12 +20,13 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Customer> storeCustomer(@RequestBody Customer customer) {
-        log.info("Customer name : {}", customer.getLastName());
+        log.info("CUSTOMER:: create customer");
         return new ResponseEntity<>(customerService.storeCustomer(customer), HttpStatus.CREATED);
     }
 
     @GetMapping("/{customerId}/equipment")
     public ResponseEntity<Equipment> getEquipment(@PathVariable("customerId") Integer customerId) {
+        log.info("CUSTOMER:: fetch customer equipment");
         return equipmentClientService.retrieveEquipmentById(customerId);
     }
 }

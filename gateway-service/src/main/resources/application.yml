@@ -22,7 +22,7 @@ spring:
         - id: consumer
           uri: lb://customer
           predicates:
-            - Path=/consumer/**
+            - Path=/customer/**
           filters:
             - StripPrefix=1
 server:
