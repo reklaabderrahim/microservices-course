@@ -4,6 +4,7 @@ import fr.rekla.customer.entities.Customer;
 import fr.rekla.customer.entities.Equipment;
 import fr.rekla.customer.feign.EquipmentClientService;
 import fr.rekla.customer.service.CustomerService;
+import fr.rekla.customer.service.NotificationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,12 @@ public class CustomerController {
     private final CustomerService customerService;
     private final EquipmentClientService equipmentClientService;
 
+    private final NotificationService notificationService;
+
     @PostMapping
     public ResponseEntity<Customer> storeCustomer(@RequestBody Customer customer) {
         log.info("CUSTOMER:: create customer");
+        notificationService.sendMessage("Customer created");
         return new ResponseEntity<>(customerService.storeCustomer(customer), HttpStatus.CREATED);
     }
 
